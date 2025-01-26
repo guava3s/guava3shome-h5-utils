@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES5",                        // 设置输出的目标代码为 ES5，确保兼容大多数环境
+    "module": "ESNext",                     // 使用 ES 模块化
+    "moduleResolution": "node",             // 解析 Node.js 风格的模块
+    "declaration": true,                    // 自动生成 .d.ts 类型定义文件
+    "outDir": "./dist",                     // 输出目录
+    "strict": true,                          // 开启严格模式
+    "esModuleInterop": true,                // 启用默认导入
+    "skipLibCheck": true,                   // 跳过库文件检查
+    "forceConsistentCasingInFileNames": true, // 强制文件名一致性
+    "rootDir": "./src",  // 源代码目录
+
+  },
+  "include": ["src/**/*"],                   // 编译 src 目录下的所有文件
+  "exclude": ["node_modules"]                // 排除 node_modules
+}
