@@ -1,26 +1,26 @@
-type Context = Record<string, any>  // 可以根据需要更具体化这个类型
-type Props = Record<string, any>    // 可以根据需要更具体化这个类型
-type Func = (args: { context: Context, props: Props }) => Context
+export type InternalContext = Record<string, any>
+export type InternalProps = Record<string, any>
+export type InternalFunc = (args: { context: InternalContext, props: InternalProps }) => InternalContext
 
 export class G3Context {
     // context > props
-    context: Context = {}
-    props: Props = {}
+    context: InternalContext = {}
+    props: InternalProps = {}
 
-    constructor(props: Props = {}, extraProps: Context = {}) {
+    constructor(props: InternalProps = {}, extraProps: InternalContext = {}) {
         this.props = props
         this.context = {...extraProps}
     }
 
     // 以 func 和 extraProps 更新 context，并返回更新后的 context
-    add(func: Func, extraProps: Context = {}): Context {
+    add(func: InternalFunc, extraProps: InternalContext = {}): InternalContext {
         const funReturnProps = func({context: {...this.context, ...extraProps}, props: this.props})
         Object.assign(this.context, funReturnProps)
         return funReturnProps
     }
 
     // 以 func 和 props 更新 context 并返回
-    addConf({func, props}: { func: Func, props: Context }): Context {
+    addConf({func, props}: { func: InternalFunc, props: InternalContext }): InternalContext {
         return this.add(func, props)
     }
 
@@ -29,8 +29,8 @@ export class G3Context {
      * [ [func, extraProps] ]
      * @param funcList
      */
-    addList(...funcList: [Func, Context][]): Context {
-        const propsRef: Context = {}
+    addList(...funcList: [InternalFunc, InternalContext][]): InternalContext {
+        const propsRef: InternalContext = {}
         for (const [func, extraProps] of funcList) {
             Object.assign(propsRef, this.add(func, extraProps))
         }
@@ -38,7 +38,7 @@ export class G3Context {
     }
 
     // 添加 context 的额外属性
-    addContextProps(props: Context): void {
+    addContextProps(props: InternalContext): void {
         Object.assign(this.context, props)
     }
 }
