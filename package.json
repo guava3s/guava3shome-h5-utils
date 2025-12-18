@@ -1,6 +1,6 @@
 {
   "name": "guava3shome-h5-utils",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -11,7 +11,11 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
-    "./*": "./dist/*.js"
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs",
+      "types": "./dist/*.d.ts"
+    }
   },
   "files": [
     "dist"
